@@ -1,4 +1,4 @@
-# Welcome to your Expo app 👋
+# Welcome to FreeReader 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
@@ -23,28 +23,11 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+**How It Works**
+Add Files for Free: Users can upload files directly from their device or browser, making it easy to add documents, PDFs, or other readable content without any cost.
 
-## Get a fresh project
+Seamless Reading with Text-to-Speech: The app converts your files into spoken words, allowing you to listen to them effortlessly. You can control the speech speed and choose exactly where the reading starts and stops.
 
-When you're ready, run:
+Fully Local and Offline: All features are designed to work entirely offline. Your files and text-to-speech controls are stored and processed locally on your device, ensuring privacy and usability without a Wi-Fi connection.
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Perfect for Multitasking: Whether you're on a long car ride or doing household chores, this app is your go-to companion for hands-free reading. Listen to your favorite documents or notes anytime, anywhere!
