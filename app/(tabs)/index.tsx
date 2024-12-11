@@ -5,14 +5,20 @@ import Footer from '../../components/Footer'; // Import Footer
 import * as DocumentPicker from 'expo-document-picker';
 import { addDeletedFile } from '../(tabs)/RecentlyDeleted';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setSharedFiles, getSharedFiles } from './ShareHandler';
+import { setFileToPlay } from './TTS';
 
-export function restoreFile(fileToAdd: DocumentPicker.DocumentPickerResult) {
-  addFile(fileToAdd);
+// restoredFiles acts as a buffer, between recently deleted and main page
+let restoredFiles: DocumentPicker.DocumentPickerResult[] = [];
+
+export function restoreFile(fileToRestore: DocumentPicker.DocumentPickerResult) {
+  restoredFiles.push(fileToRestore);
 }
 
 export default function App() {
   // State to hold the array of files
   const [files, setFiles] = useState<DocumentPicker.DocumentPickerResult[]>([]);
+
 
   // Load files from AsyncStorage when the component mounts
   useEffect(() => {
@@ -26,7 +32,6 @@ export default function App() {
         console.error('Error loading files from storage:', error);
       }
     };
-
     loadFiles();
   }, []);
 
@@ -55,6 +60,20 @@ export default function App() {
 
   // Function to display the list of uploaded files
   function displayTextList() {
+    // getFiles();
+    // Check the storage for shared files and add them all
+    const sharedFiles = getSharedFiles();
+    for (const file of sharedFiles) {
+      addFile(file);
+    }
+    // Reset array of sharedFiles
+    setSharedFiles([]);
+    // Check the array of restored files and add them all
+    for (const file of restoredFiles) {
+      addFile(file);
+    }
+    // Reset the array of restored files
+    restoredFiles = [];
     if (files.length === 0) {
       return (
         <Text style={styles.pdfText}>
@@ -71,6 +90,8 @@ export default function App() {
             <Text style={styles.fileTitle}>Title: {asset.name || 'Unnamed File'}</Text>
             <Text style={styles.fileType}>Type: {asset.mimeType || 'Unknown Type'}</Text>
             <Button title="Delete File" onPress={() => deleteFile(fileIndex)} />
+            <Text> </Text>
+            <Button title="Play File" onPress={() => playTTS(fileIndex)} />
           </View>
         ));
       }
@@ -85,6 +106,10 @@ export default function App() {
     setFiles(updatedFiles);
     addDeletedFile(fileToDelete);
     AsyncStorage.setItem('files', JSON.stringify(updatedFiles)); // Save updated files to AsyncStorage
+  }
+
+  function playTTS(fileIndexToPlay: number) {
+    setFileToPlay(files[fileIndexToPlay]);
   }
 
   return (

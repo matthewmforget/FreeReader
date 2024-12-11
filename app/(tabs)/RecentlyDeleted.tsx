@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import * as DocumentPicker from 'expo-document-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { restoreFile } from '.';
 
 
 export async function addDeletedFile(file: DocumentPicker.DocumentPickerResult) {
@@ -40,6 +41,15 @@ export default function RecentlyDeletedScreen() {
     setDeletedFiles(updatedDeletedFiles);  // Update state after deletion
   };
 
+  // Recover a deleted file
+  const recoverDeletedFile = async (fileIndexToDelete: number) => {
+    const fileToRecover = deletedFiles[fileIndexToDelete];
+    const updatedDeletedFiles = deletedFiles.filter((_, index) => index !== fileIndexToDelete);
+    await AsyncStorage.setItem('deletedFiles', JSON.stringify(updatedDeletedFiles));
+    setDeletedFiles(updatedDeletedFiles);  // Update state after deletion
+    restoreFile(fileToRecover);
+  };
+
   // Render the list of deleted files
   const renderDeletedFiles = () => {
     if (deletedFiles.length === 0) {
@@ -59,7 +69,7 @@ export default function RecentlyDeletedScreen() {
             <Text style={styles.fileType}>{asset.mimeType || ' '}</Text>
             <Button
               title="Recover File"
-              onPress={() => permanentlyDeleteFile(fileIndex)}
+              onPress={() => recoverDeletedFile(fileIndex)}
             />
           </View>
         ));

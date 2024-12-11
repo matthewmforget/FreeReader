@@ -13,6 +13,10 @@ export default function Footer() {
                 onPress={() => router.push('/')}  // Navigate to Home
             />
             <Button 
+                title="Listen" 
+                onPress={() => router.push('/(tabs)/Listen')}  // Navigate to Listen
+            />
+            <Button 
                 title="Archive" 
                 onPress={() => router.push('/archive')}  // Navigate to Archive
             />

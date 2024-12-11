@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Slider from '@react-native-community/slider'; // Import Slider
 import Header from '../../components/Header'; // Reuse Header component
 import Footer from '../../components/Footer'; // Reuse Footer component
+import { setParameters } from './TTS';
 
 export default function AdjustSpeechSettingsScreen() {
     // State hooks for each setting
@@ -12,6 +13,11 @@ export default function AdjustSpeechSettingsScreen() {
     const [volume, setVolume] = useState(0.5); // Initial volume is 50%
     const [fontSize, setFontSize] = useState(14); // Initial font size is 14
     const [fontStyle, setFontStyle] = useState('Arial'); // Initial font style is Arial
+
+    // Effect to update TTS parameters when speed or pitch changes
+    useEffect(() => {
+        setParameters(speed, pitch);
+    }, [speed, pitch]); // Dependencies: speed and pitch
 
     return (
         <View style={styles.container}>
